@@ -5,7 +5,7 @@
 4. MYSQL:
    - user: root
    - password: root
-   - database: todos
+   - database: movies
    - port: 3306
 5. PHPMYADMIN:
    - localhost:8080
