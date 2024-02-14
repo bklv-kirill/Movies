@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Providers;
+
+// use Illuminate\Support\Facades\Gate;
+use App\Models\Author;
+use App\Models\Cinema;
+use App\Models\Ganre;
+use App\Models\Movie;
+use App\Models\User;
+use App\Policies\AuthorPolicy;
+use App\Policies\CinemaPolicy;
+use App\Policies\GanrePolicy;
+use App\Policies\MoviePolicy;
+use App\Policies\UserPolicy;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+
+class AuthServiceProvider extends ServiceProvider
+{
+    /**
+     * The model to policy mappings for the application.
+     *
+     * @var array<class-string, class-string>
+     */
+    protected $policies = [
+        Movie::class => MoviePolicy::class,
+        Cinema::class => CinemaPolicy::class,
+        Author::class => AuthorPolicy::class,
+        Ganre::class => GanrePolicy::class,
+        User::class => UserPolicy::class,
+    ];
+
+    /**
+     * Register any authentication / authorization services.
+     */
+    public function boot(): void
+    {
+        Gate::define("is-admin", function (User $user) {
+            return $user->is_admin;
+        });
+    }
+}
